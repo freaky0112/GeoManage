@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoManage", "GeoManage\GeoManage.csproj", "{9EBE8E43-F5E3-46BF-BFC6-152CCC1DED01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoManage.Constant", "GeoManage.Constant\GeoManage.Constant.csproj", "{F1AAD7EE-5BE0-4942-8408-57B33585CDA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoManage.GeoEdit", "GeoManage.GeoEdit\GeoManage.GeoEdit.csproj", "{A4B6ED24-6B18-454F-BA42-D88C68B18B6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EBE8E43-F5E3-46BF-BFC6-152CCC1DED01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBE8E43-F5E3-46BF-BFC6-152CCC1DED01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBE8E43-F5E3-46BF-BFC6-152CCC1DED01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBE8E43-F5E3-46BF-BFC6-152CCC1DED01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1AAD7EE-5BE0-4942-8408-57B33585CDA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AAD7EE-5BE0-4942-8408-57B33585CDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1AAD7EE-5BE0-4942-8408-57B33585CDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1AAD7EE-5BE0-4942-8408-57B33585CDA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4B6ED24-6B18-454F-BA42-D88C68B18B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4B6ED24-6B18-454F-BA42-D88C68B18B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4B6ED24-6B18-454F-BA42-D88C68B18B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4B6ED24-6B18-454F-BA42-D88C68B18B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
