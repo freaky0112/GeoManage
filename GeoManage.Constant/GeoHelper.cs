@@ -114,6 +114,7 @@ namespace GeoManage.Constant {
                 //判断是否为地块信息行
                 if(count == 8) {
                     if(geometries.Polygons.Count != 0) {//地块信息是否为空
+                        geometries.Polygons.Add(polygon);
                         project.Geometries.Add(geometries);//不为空则将该地块添加入批次中
                     }
                     //初始化地块

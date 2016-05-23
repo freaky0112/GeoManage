@@ -44,5 +44,10 @@ namespace GeoManage {
             GeoWrite geo = new GeoWrite(project);
             geo.shpWrite();
         }
+
+        private void btnExport_Click(object sender, EventArgs e) {
+            GeoRead geo = new GeoRead(@"C:\Users\Freaky\Desktop\a.shp");
+            project=geo.shpRead();
+        }
     }
 }

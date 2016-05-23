@@ -23,58 +23,89 @@ namespace GeoManage.GeoEdit {
         public void shpWrite() {
             fs.DataTable.Columns.Add(new DataColumn("ID", typeof(int)));
             fs.DataTable.Columns.Add(new DataColumn("Project", typeof(string)));
+            fs.DataTable.Columns.Add(new DataColumn("Area", typeof(double)));
+            int ID = 0;
+            foreach (Geometries geometry in project.Geometries) {
+                ID++;
+                Polygon[] pgs = new Polygon[geometry.Polygons.Count];
+                int i = 0;
+                //foreach (Geometries geometry in project.Geometries) {
 
-
-            Polygon[] pgs = new Polygon[project.Geometries[0].Polygons.Count];
-            foreach(Geometries geometry in project.Geometries) {
-                foreach(GeoPolygon polygon in geometry.Polygons) {
-                    List<Coordinate> vertices = new List<Coordinate>();
-                    foreach(GeoPoint point in polygon.Points) {
-                        Coordinate vertice = new Coordinate();
-                        vertice.X = point.X;
-                        vertice.Y = point.Y;
-                        vertices.Add(vertice);
+                    foreach (GeoPolygon polygon in geometry.Polygons) {
+                        List<Coordinate> vertices = new List<Coordinate>();
+                        foreach (GeoPoint point in polygon.Points) {
+                            Coordinate vertice = new Coordinate();
+                            vertice.X = point.X;
+                            vertice.Y = point.Y;
+                            vertices.Add(vertice);
+                        }
+                        Polygon geom = new Polygon(vertices);
+                        pgs[i] = geom;
+                        i++;
                     }
-                    Polygon geom = new Polygon(vertices);
-                    pgs[polygon.Circle - 1] = geom;
-                }
+                //}
+
+
+                MultiPolygon geoms = new MultiPolygon(pgs);
+                geoms.ToText();
+                IFeature feature = fs.AddFeature(geoms);
+                feature.DataRow.BeginEdit();
+                feature.DataRow["ID"] = ID;
+                feature.DataRow["Project"] = project.Name;
+                feature.DataRow["Area"] = feature.Area();
+                feature.DataRow.EndEdit();
             }
-
-
-            MultiPolygon geoms = new MultiPolygon(pgs);
-            geoms.ToText();
-            IFeature feature = fs.AddFeature(geoms);
-
-            feature.DataRow.BeginEdit();
-            feature.DataRow["ID"] = 1;
-            feature.DataRow["Project"] = project.Name;
-            feature.DataRow.EndEdit();
             //fs.Projection = ProjectionInfo.(@"F:\数据\2013SHP\DLTB.shp");
             //fs.ProjectionString = " +x_0=40500000 +y_0=0 +lat_0=0 +lon_0=120 +proj=tmerc +a=6378140 +b=6356755.28815753 +no_defs";
-            IFeatureSet fsource = FeatureSet.Open(@"F:\数据\2013SHP\DLTB.shp");
-            fs.Projection = fsource.Projection;
-            fsource.Close();
-            fs.SaveAs("G:\\TEST\\a.shp", true);
+            //IFeatureSet fsource = FeatureSet.Open(@"F:\数据\2013SHP\DLTB.shp");
+            //fs.Projection = fsource.Projection;
+            //fsource.Close();
+            fs.SaveAs(@"C:\Users\Freaky\Desktop\b.shp", true);
             ;
         }
     }
 
     public class GeoRead {
         string shppath;
-
-
+        GeoProject project;
 
         public GeoRead(string path) {
             this.shppath = path;
         }
 
-        public void shpRead() {
+        public GeoProject shpRead() {
             IFeatureSet fs = FeatureSet.Open(shppath);
             string str = fs.ProjectionString;
             ProjectionInfo info= fs.Projection;
-            str.ToCharArray();
-            int i;
-            i = 1;
+            project = new GeoProject();
+            for (int i = 0; i < fs.Features.Count; i++) {
+                Geometries geometries = new Geometries();
+                IList<Coordinate> vertics = fs.Features[i].Coordinates;
+                GeoPolygon polygon = new GeoPolygon();
+                int circle = 1;
+                foreach (Coordinate vertic in vertics) {                   
+                    GeoPoint point = new GeoPoint();
+                    point.X = vertic.X;
+                    point.Y = vertic.Y;
+                    if (polygon.Points.Contains(point)) {
+                        polygon.Circle = circle;
+                        geometries.Polygons.Add(polygon);
+                        circle++;
+                        polygon = new GeoPolygon();
+                    }
+                    polygon.Points.Add(point);
+                }
+                polygon.Circle = circle;
+                geometries.Polygons.Add(polygon);
+                project.Geometries.Add(geometries);
+            }
+
+
+            return project;
         }
+
+
     }
+
+
 }

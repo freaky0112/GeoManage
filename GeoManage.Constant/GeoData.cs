@@ -290,7 +290,7 @@ namespace GeoManage.Constant {
     /// <summary>
     /// 点
     /// </summary>
-    public class GeoPoint {
+    public class GeoPoint:IEquatable<GeoPoint> {
         double x;
         /// <summary>
         /// X坐标
@@ -315,6 +315,45 @@ namespace GeoManage.Constant {
             set {
                 y = value;
             }
+        }
+
+        public override bool Equals(object obj) {
+            return this.Equals(obj as GeoPoint);
+        }
+
+        public bool Equals(GeoPoint point) {
+            if (Object.ReferenceEquals(point,null)) {
+                return false;
+            }
+
+            if (Object.ReferenceEquals(this,null)) {
+                return true;  
+            }
+
+            if (this.GetType()!=point.GetType()) {
+                return false;
+            }
+
+            return (X == point.X) && (Y == point.Y);
+
+        }
+
+        public static bool operator ==(GeoPoint lhs, GeoPoint rhs) {
+            // Check for null on left side.
+            if (Object.ReferenceEquals(lhs, null)) {
+                if (Object.ReferenceEquals(rhs, null)) {
+                    // null == null = true.
+                    return true;
+                }
+
+                // Only the left side is null.
+                return false;
+            }
+            // Equals handles case of null on right side.
+            return lhs.Equals(rhs);
+        }
+        public static bool operator !=(GeoPoint lhs, GeoPoint rhs) {
+            return !(lhs == rhs);
         }
 
     }

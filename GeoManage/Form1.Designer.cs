@@ -25,6 +25,7 @@
         private void InitializeComponent() {
             this.btnImport = new System.Windows.Forms.Button();
             this.btnGenerate = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImport
@@ -47,11 +48,22 @@
             this.btnGenerate.UseVisualStyleBackColor = true;
             this.btnGenerate.Click += new System.EventHandler(this.btnGenerate_Click);
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(153, 63);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 2;
+            this.btnExport.Text = "导出报部格式";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnGenerate);
             this.Controls.Add(this.btnImport);
             this.Name = "Form1";
@@ -64,6 +76,7 @@
 
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Button btnGenerate;
+        private System.Windows.Forms.Button btnExport;
     }
 }
 
