@@ -51,7 +51,7 @@ namespace GeoManage {
         }
 
         private void btnExport_Click(object sender, EventArgs e) {
-            GeoRead geo = new GeoRead(@"C:\Users\Freaky\Desktop\a.shp");
+            GeoRead geo = new GeoRead(@"G:\TEST\青田县东源镇驮龙、平溪垦造耕地项目.shp");
             project = geo.shpRead();
         }
     }
