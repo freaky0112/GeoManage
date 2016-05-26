@@ -22,7 +22,9 @@ namespace GeoManage.GeoEdit {
 
         public void shpWrite(string path) {
             fs.DataTable.Columns.Add(new DataColumn("ID", typeof(int)));
-            fs.DataTable.Columns.Add(new DataColumn("Project", typeof(string)));
+            DataColumn col = new DataColumn("Project", typeof(string));
+            col.MaxLength = 50;
+            fs.DataTable.Columns.Add(col);
             fs.DataTable.Columns.Add(new DataColumn("Area", typeof(double)));
             IFeatureSet fsource = FeatureSet.Open(@"Sample\Sample.shp");
             fs.Projection = fsource.Projection;
