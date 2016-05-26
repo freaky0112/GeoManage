@@ -20,7 +20,7 @@ namespace GeoManage.GeoEdit {
             this.project = project;
         }
 
-        public void shpWrite() {
+        public void shpWrite(string path) {
             fs.DataTable.Columns.Add(new DataColumn("ID", typeof(int)));
             fs.DataTable.Columns.Add(new DataColumn("Project", typeof(string)));
             fs.DataTable.Columns.Add(new DataColumn("Area", typeof(double)));
@@ -39,8 +39,11 @@ namespace GeoManage.GeoEdit {
                             vertice.Y = point.Y;
                             vertices.Add(vertice);
                         }
+                        
                         Polygon geom = new Polygon(vertices);
+                        
                         pgs[i] = geom;
+
                         i++;
                     }
                 //}
@@ -57,10 +60,10 @@ namespace GeoManage.GeoEdit {
             }
             //fs.Projection = ProjectionInfo.(@"F:\数据\2013SHP\DLTB.shp");
             //fs.ProjectionString = " +x_0=40500000 +y_0=0 +lat_0=0 +lon_0=120 +proj=tmerc +a=6378140 +b=6356755.28815753 +no_defs";
-            //IFeatureSet fsource = FeatureSet.Open(@"F:\数据\2013SHP\DLTB.shp");
-            //fs.Projection = fsource.Projection;
-            //fsource.Close();
-            fs.SaveAs(@"C:\Users\Freaky\Desktop\b.shp", true);
+            IFeatureSet fsource = FeatureSet.Open(@"Sample\Sample.shp");
+            fs.Projection = fsource.Projection;
+            fsource.Close();
+            fs.SaveAs(path, true);
             ;
         }
     }
