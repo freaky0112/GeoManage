@@ -285,6 +285,32 @@ namespace GeoManage.Constant {
             }
         }
 
+        public bool GetDirection() {
+            try {
+                if (Points.Count >= 4) {
+                    if (GetIndexOfNorthest() == -1) {
+                        throw new Exception("坐标串有误没有极北点");
+                    }
+                }
+
+            } catch (Exception) {
+
+                throw;
+            }
+
+        }
+
+        private int GetIndexOfNorthest() {
+            int index=-1;
+            double max = 0;
+            for (int i = 0; i < Points.Count; i++) {
+                if (max<Points[i].X) {
+                    max = Points[i].X;
+                    index = i;
+                }
+            }
+            return index;
+        }
     }
 
     /// <summary>
@@ -336,6 +362,10 @@ namespace GeoManage.Constant {
 
             return (X == point.X) && (Y == point.Y);
 
+        }
+
+        public override Int32 GetHashCode() {
+            return x.GetHashCode()* 0x00010000 + y.GetHashCode();
         }
 
         public static bool operator ==(GeoPoint lhs, GeoPoint rhs) {
