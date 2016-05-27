@@ -284,21 +284,37 @@ namespace GeoManage.Constant {
                 points = value;
             }
         }
-
+        /// <summary>
+        /// 判断多边形点的方向，true为逆时针,false为顺时针
+        /// </summary>
+        /// <returns></returns>
         public bool GetDirection() {
+            double z;
             try {
                 if (Points.Count >= 4) {
                     if (GetIndexOfNorthest() == -1) {
                         throw new Exception("坐标串有误没有极北点");
                     }
                 }
-
-            } catch (Exception) {
-
-                throw;
+                int index = GetIndexOfNorthest();
+                GeoPoint maxPoint = Points[index];
+                GeoPoint nextPoint = Points[(index + 1) % Points.Count];
+                GeoPoint prePoint = Points[(index - 1 + Points.Count) % Points.Count];
+                z = Methods.crossProduct(maxPoint, prePoint, nextPoint);
+                if (z==0) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                throw e;
             }
-
+            if (z > 0) {
+                return true;
+            }else {
+                return false;
+            }
         }
+
+        
 
         private int GetIndexOfNorthest() {
             int index=-1;
@@ -384,6 +400,24 @@ namespace GeoManage.Constant {
         }
         public static bool operator !=(GeoPoint lhs, GeoPoint rhs) {
             return !(lhs == rhs);
+        }
+
+        public static GeoPoint operator - (GeoPoint lhs, GeoPoint rhs) {
+            GeoPoint result = new GeoPoint();
+            result.X = lhs.X - rhs.X;
+            result.Y = lhs.Y - rhs.Y;
+            return result;
+        }
+
+        public static GeoPoint operator +(GeoPoint lhs, GeoPoint rhs) {
+            GeoPoint result = new GeoPoint();
+            result.X = lhs.X + rhs.X;
+            result.Y = lhs.Y + rhs.Y;
+            return result;
+        }
+
+        public static double operator * (GeoPoint lhs,GeoPoint rhs) {
+            return lhs.X * rhs.Y - lhs.Y * rhs.X;
         }
 
     }

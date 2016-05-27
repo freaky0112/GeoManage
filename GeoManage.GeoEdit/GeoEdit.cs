@@ -38,9 +38,15 @@ namespace GeoManage.GeoEdit {
 
                 foreach (GeoPolygon polygon in geometry.Polygons) {
                     List<Coordinate> vertices = new List<Coordinate>();
-                    if (polygon.Circle>1) {
+
+                    //polygon.Points.Reverse();
+
+                    if (polygon.Circle>1&&!polygon.GetDirection()) {
+                        polygon.Points.Reverse();
+                    } else if (polygon.Circle==1&&polygon.GetDirection()) {
                         polygon.Points.Reverse();
                     }
+                    
                     foreach (GeoPoint point in polygon.Points) {
                         Coordinate vertice = new Coordinate();
                         vertice.X = point.X;

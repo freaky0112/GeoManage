@@ -35,5 +35,9 @@ namespace GeoManage.Constant {
             string wkt = "";
             return wkt;
         }
+
+        public static double crossProduct(GeoPoint current, GeoPoint pre, GeoPoint next) {
+            return (current - pre) * (next - current);
+        }
     }
 }
